@@ -5,3 +5,17 @@
  * `contextIsolation` is turned on. Use the contextBridge API in `preload.js`
  * to expose Node.js functionality from the main process.
  */
+
+const input = document.getElementById('qty')
+const button = document.getElementById('send')
+const container = document.getElementById('container')
+
+button.onclick = async function(){
+    container.innerHTML= ""
+    const messages = await myAPI.getMessage({quantity:Number(input.value)})
+    messages.forEach( message=> {
+        const li = document.createElement('li')
+        li.innerText = message 
+        container.append(li)
+    });
+}

@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow,ipcMain} = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -24,6 +24,15 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
+
+  ipcMain.handle('getMessage', (e,qty)=>{
+    console.log({qty})    
+    let msgs = []
+    for (let i = 0; i < qty; i++) {
+      msgs.push(`message${i+1}`)
+    }
+    return msgs
+  })
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

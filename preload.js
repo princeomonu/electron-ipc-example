@@ -5,6 +5,17 @@
  * 
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
+
+
+ const { contextBridge, ipcRenderer } = require('electron')
+
+ contextBridge.exposeInMainWorld('myAPI',{
+  getMessage: (option) => ipcRenderer.invoke('getMessage',option?option.quantity:1)
+ })
+
+
+
+
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector)
